@@ -6,18 +6,30 @@ class LoginForm extends Component {
     account: { username: '', password: '' },
     errors: {},
   }
-  // username = React.createRef()
 
-  // componentDidMount() {
-  //   this.username.current.focus()
-  // }
+  validate = () => {
+    const { username, password } = this.state.account
+
+    const errors = {}
+
+    if (username.trim() === '') {
+      errors.username = 'Username is required'
+    }
+    if (password.trim() === '') {
+      errors.password = 'Password is required'
+    }
+
+    return Object.keys(errors).length === 0 ? null : errors
+  }
   handleSubmit = (e) => {
     e.preventDefault()
 
-  //   const error = this.validate()
-  //   // this.setState({ errors })
-  //   // if (error) return
-  // }
+    const errors = this.validate()
+    console.log(errors)
+    this.setState({ errors })
+
+    if (errors) return
+  }
 
   handleChange = ({ currentTarget: input }) => {
     const account = { ...this.state.account }

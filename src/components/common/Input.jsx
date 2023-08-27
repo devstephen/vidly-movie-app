@@ -11,7 +11,6 @@ const Input = ({ name, onChange, username, label, value }) => {
         id={name}
         type='text'
         className='form-control'
-        required
       />
     </div>
   )
