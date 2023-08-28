@@ -13,10 +13,10 @@ class LoginForm extends Component {
     const errors = {}
 
     if (username.trim() === '') {
-      errors.username = 'Username is required'
+      errors.username = 'Please enter username'
     }
     if (password.trim() === '') {
-      errors.password = 'Password is required'
+      errors.password = 'Please enter password'
     }
 
     return Object.keys(errors).length === 0 ? null : errors
