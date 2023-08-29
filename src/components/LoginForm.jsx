@@ -1,63 +1,51 @@
 import React, { Component } from 'react'
 import Input from './common/Input'
+import Joi from 'joi-browser'
+import Form from './common/Form'
 
-class LoginForm extends Component {
+class LoginForm extends Form {
   state = {
-    account: { username: '', password: '' },
+    data: { username: '', password: '' },
     errors: {},
   }
 
-  validate = () => {
-    const { username, password } = this.state.account
-
-    const errors = {}
-
-    if (username.trim() === '') {
-      errors.username = 'Please enter username'
-    }
-    if (password.trim() === '') {
-      errors.password = 'Please enter password'
-    }
-
-    return Object.keys(errors).length === 0 ? null : errors
-  }
-  handleSubmit = (e) => {
-    e.preventDefault()
-
-    const errors = this.validate()
-    this.setState({ errors })
-
-    if (errors) return
+  schema = {
+    username: Joi.string().required().label('Username'),
+    password: Joi.string().required().label('Password'),
   }
 
-  handleChange = ({ currentTarget: input }) => {
-    const account = { ...this.state.account }
-    account[input.name] = input.value
-
-    this.setState({ account })
+  doSubmit = () => {
+    // Call the server
+    console.log('Submitted')
   }
+
   render() {
-    const { account, errors } = this.state
+    const { data, errors } = this.state
     return (
       <div>
         <h1 className='mb-5'>Login </h1>
         <form onSubmit={this.handleSubmit}>
           <Input
             name='username'
-            value={account.username}
+            value={data.username}
             onChange={this.handleChange}
             label='Username'
             error={errors.username}
           />
           <Input
             name='password'
-            value={password}
+            value={data.password}
             onChange={this.handleChange}
             label='Password'
             error={errors.password}
           />
 
-          <button className='btn btn-primary px-4 py-10'>Login</button>
+          <button
+            disabled={this.validate()}
+            className='btn btn-primary px-4 py-10'
+          >
+            Login
+          </button>
         </form>
       </div>
     )
