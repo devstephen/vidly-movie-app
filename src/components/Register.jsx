@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Joi from 'joi-browser'
 import Form from './common/Form'
-export class Register extends Form {
+class Register extends Form {
   state = {
     data: { username: '', password: '', name: '' },
     errors: {},
